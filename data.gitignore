@@ -19,3 +19,5 @@ build/
 
 # Temporary files
 *.tmp
+# config file
+config/config.env
