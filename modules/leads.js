@@ -1,45 +1,54 @@
-const sequelize=require('../config/connection')
-const {DataTypes}=require('sequelize')
-const leads=sequelize.define('leads',{
-    id:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
-        primaryKey:true,
-        autoIncrement:true,
-        
+const sequelize = require('../config/connection')
+const { DataTypes } = require('sequelize')
+
+const leads = sequelize.define('leads', {
+    id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,       
     },
-    title:{
-        type:DataTypes.STRING,
-        allowNull:false,
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
-    source:{
-        type:DataTypes.STRING,
-        allowNull:false,
+    source: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
-    status:{
-        type:DataTypes.STRING,
-        defaultValue:'new',
-        allowNull:false,
+    status: {
+        type: DataTypes.STRING,
+        defaultValue: 'new',
+        allowNull: false,
     },
-    priority:{
-        type:DataTypes.ENUM('low','medium','high'),
-        defaultValue:'medium',
-        allowNull:false,
+    priority: {
+        type: DataTypes.ENUM('low','medium','high'),
+        defaultValue: 'medium',
+        allowNull: false,
     },
-    note:{
-        type:DataTypes.TEXT,
+    note: {
+        type: DataTypes.TEXT,
     },
-    assigned_to:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
+    assigned_to: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
-    user_id:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
+    user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
-    contact_id:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
+    contact_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }    
+}, {
+    indexes: [
+        {
+            unique: true,
+            name: 'unique_contact_per_leads',
+            fields: ['user_id', 'contact_id']   // ✅ fixed
+        }
+    ]
 })
-module.exports=leads
+
+module.exports = leads

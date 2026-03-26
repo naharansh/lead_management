@@ -1,4 +1,4 @@
-const User = require('./login');        // better: rename file to user.js
+const Login = require('./login');        // better: rename file to Login.js
 const Company = require('./companies');
 const Contact = require('./contactus');
 const Lead = require('./leads');
@@ -9,37 +9,37 @@ const team_members = require('./team_members');
 const activities = require('./activities');
 
 /* =========================
-   User → Companies
+   Login → Companies
 ========================= */
-User.hasMany(Company, {
+Login.hasMany(Company, {
     foreignKey: 'owner_id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 });
-Company.belongsTo(User, {
+Company.belongsTo(Login, {
     foreignKey: 'owner_id'
 });
 
 /* =========================
-   User → Contacts
+   Login → Contacts
 ========================= */
-User.hasMany(Contact, {
+Login.hasMany(Contact, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 });
-Contact.belongsTo(User, {
+Contact.belongsTo(Login, {
     foreignKey: 'user_id'
 });
 
 /* =========================
-   User → Leads
+   Login → Leads
 ========================= */
-User.hasMany(Lead, {
+Login.hasMany(Lead, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 });
-Lead.belongsTo(User, {
+Lead.belongsTo(Login, {
     foreignKey: 'user_id'
 });
 
@@ -65,56 +65,56 @@ Followup.belongsTo(Lead, {
 });
 
 // /* Optional (Recommended) */
-User.hasMany(Followup, {
+Login.hasMany(Followup, {
     foreignKey: 'user_id'
 });
-Followup.belongsTo(User, {
-    foreignKey: 'user_id'
-});
-
-/* =========================
-   User → Lead Status Master
-========================= */
-User.hasMany(lead_status_master, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-});
-lead_status_master.belongsTo(User, {
+Followup.belongsTo(Login, {
     foreignKey: 'user_id'
 });
 
 /* =========================
-   User → Lead Source
+   Login → Lead Status Master
 ========================= */
-User.hasMany(lead_source, {
+Login.hasMany(lead_status_master, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 });
-lead_source.belongsTo(User, {
+lead_status_master.belongsTo(Login, {
     foreignKey: 'user_id'
 });
-team_members.belongsTo(User, {
-    foreignKey: 'user_id'
-});
-User.hasMany(team_members, {
+
+/* =========================
+   Login → Lead Source
+========================= */
+Login.hasMany(lead_source, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 });
-activities.belongsTo(User,{
+lead_source.belongsTo(Login, {
+    foreignKey: 'user_id'
+});
+team_members.belongsTo(Login, {
+    foreignKey: 'user_id'
+});
+Login.hasMany(team_members, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+});
+activities.belongsTo(Login,{
     foreignKey:'user_id',
     onDelete:'CASCADE',
     onUpdate:'CASCADE'
 })
-User.hasMany(activities,{
+Login.hasMany(activities,{
     foreignKey:'user_id',
     onDelete:'CASCADE',
     onUpdate:'CASCADE'
 })
 module.exports = {
-    User,
+    Login,
     Company,
     Contact,
     Lead,
