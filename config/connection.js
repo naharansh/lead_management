@@ -10,4 +10,5 @@ const sequelize = new Sequelize(
         dialect: 'postgres',
     }
 );
+s
 module.exports=sequelize
